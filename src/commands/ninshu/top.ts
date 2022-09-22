@@ -46,7 +46,8 @@ async function send_image_records_to_discord(message: Message ,array: string | a
 async function jimp(records: string[]) {
     const fontLeaderBoard = await Jimp.loadFont('./src/font/font_leaderboard/5r0rI6Ck6aU2LYVyLdMfsfDs.ttf.fnt');
     const font = await Jimp.loadFont('./src/font/gJSiiXVfeWEPAnxA0T1TIcbM.ttf.fnt');
-    const image = await Jimp.read('https://imgur.com/ekaUeLE.jpeg');
+   // const image = await Jimp.read('https://imgur.com/ekaUeLE.jpeg');
+    const image = await Jimp.read('./src/images/20400166_new.png');
     const logo = await Jimp.read('./src/images/ICON.png');
     //const image = await Jimp.read(1200, 900, 0x000052ff);
     await image.blur(10);
