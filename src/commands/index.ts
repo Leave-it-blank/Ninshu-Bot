@@ -1,6 +1,5 @@
 import {Command} from "../types/command";
 
-
 import {top} from "./ninshu/top";
 import {leaderboard} from "./ninshu/leaderboard";
 
@@ -8,7 +7,7 @@ import {leaderboard} from "./ninshu/leaderboard";
  * An array of all commands available for the bot.
  * To register a command, all you have to do is place it in this array
  */
-export const commands: Command[] = [ top, leaderboard];
+export const commands: Command[] = [top, leaderboard];
 
 const commandsWithAliases = commands.reduce((all, command) => {
   // Dedupe aliases

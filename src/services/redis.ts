@@ -2,7 +2,7 @@ import IORedis from "ioredis";
 
 export const redis = new IORedis(process.env.REDIS_URL, {
   lazyConnect: true,
-  password: process.env.REDIS_PASS
+  password: process.env.REDIS_PASS,
 });
 
 /**
@@ -27,13 +27,19 @@ export async function wrapRedis<T>(
   return recent;
 }
 
-export async function getRedisCmd<T>(
-
-): Promise<string[]> {
- // const data = await redis.send_command(cmd);
-  // @ts-ignore
-  const cached = await redis.zrevrangebyscore('weekly-leaderboards', '+inf', '-inf' ,`withscores`, 'limit' ,0 ,10);
-   if (cached) return cached;
-  return  JSON.parse("null");
+export async function getRedisCmd(): Promise<[string, string][]> {
+  const cached = await redis.zrevrangebyscore(
+    "weekly-leaderboards",
+    "+inf",
+    "-inf",
+    "WITHSCORES",
+    "LIMIT",
+    0,
+    10
+  );
+  if (cached)
+    return cached
+      .map((item, index, arr) => (index % 2 === 0 ? [item, arr[index + 1]] : null))
+      .filter(item => item !== null) as [string, string][];
+  return [];
 }
-
